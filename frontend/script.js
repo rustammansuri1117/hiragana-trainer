@@ -5,7 +5,7 @@
    and localStorage persistence across sessions.
    ========================================================================== */
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = "https://hiragana-trainer-1.onrender.com";
 
 /* ---------------------------------------------------------------------- */
 /* DOM references                                                         */
