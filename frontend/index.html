@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hiragana Trainer — 平がな練習</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Faint ink-brush stroke that anchors the top of the page -->
+  <div class="brush-stroke" aria-hidden="true"></div>
+
+  <div class="app-shell">
+
+    <header class="app-header">
+      <div class="header-title">
+        <span class="eyebrow">HIRAGANA TRAINER</span>
+        <h1>平がな<span class="header-sub">练习 · Practice the 46 kana</span></h1>
+      </div>
+
+      <div class="mode-toggle">
+        <label class="toggle-label" for="timerToggle">
+          <input type="checkbox" id="timerToggle" />
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          <span class="toggle-text">10s Timer Mode</span>
+        </label>
+      </div>
+    </header>
+
+    <main class="layout">
+
+      <!-- ============ LEFT: SCORE / STREAK PANEL ============ -->
+      <aside class="panel score-panel">
+        <h2 class="panel-title">Progress</h2>
+
+        <div class="stat-grid">
+          <div class="stat-block correct">
+            <span class="stat-value" id="correctCount">0</span>
+            <span class="stat-label">Correct</span>
+          </div>
+          <div class="stat-block wrong">
+            <span class="stat-value" id="wrongCount">0</span>
+            <span class="stat-label">Missed</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-value" id="totalCount">0</span>
+            <span class="stat-label">Attempts</span>
+          </div>
+          <div class="stat-block accuracy">
+            <span class="stat-value" id="accuracyValue">0%</span>
+            <span class="stat-label">Accuracy</span>
+          </div>
+        </div>
+
+        <div class="streak-row">
+          <span class="streak-flame" id="streakFlame">🔥</span>
+          <div>
+            <span class="streak-value" id="streakCount">0</span>
+            <span class="streak-label">streak</span>
+          </div>
+          <div class="streak-best">best: <span id="bestStreak">0</span></div>
+        </div>
+
+        <div class="accuracy-bar-track">
+          <div class="accuracy-bar-fill" id="accuracyBar"></div>
+        </div>
+
+        <button class="ghost-btn" id="restartBtn">↺ Restart Session</button>
+      </aside>
+
+      <!-- ============ CENTER: FLASHCARD ============ -->
+      <section class="panel card-panel">
+
+        <div class="card-stage">
+          <div class="washi-card" id="washiCard">
+            <div class="hanko-stamp" id="hankoStamp" aria-hidden="true">合格</div>
+            <span class="char-index" id="charIndex">— / 46 seen —</span>
+            <div class="kana-display" id="kanaChar">あ</div>
+            <div class="timer-ring" id="timerRing" hidden>
+              <svg viewBox="0 0 80 80">
+                <circle class="timer-ring-bg" cx="40" cy="40" r="34"></circle>
+                <circle class="timer-ring-fg" id="timerRingFg" cx="40" cy="40" r="34"></circle>
+              </svg>
+              <span class="timer-ring-text" id="timerText">10</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="answer-form" id="answerForm" autocomplete="off">
+          <input
+            type="text"
+            id="answerInput"
+            class="answer-input"
+            placeholder="type the romaji…"
+            autofocus
+          />
+          <button type="submit" class="ink-btn primary" id="submitBtn">Check</button>
+        </form>
+
+        <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+
+        <div class="action-row">
+          <button class="ink-btn" id="nextBtn">Next character →</button>
+        </div>
+      </section>
+
+      <!-- ============ RIGHT: MISTAKE REVIEW / DASHBOARD ============ -->
+      <aside class="panel review-panel">
+        <h2 class="panel-title">Review Deck</h2>
+        <p class="panel-hint">
+          Missed kana return here. Cards you miss more often surface sooner
+          in your next practice round.
+        </p>
+
+        <ul class="mistake-list" id="mistakeList">
+          <li class="mistake-empty" id="mistakeEmpty">No mistakes yet — nice and clean.</li>
+        </ul>
+
+        <h2 class="panel-title panel-title-spaced">Session History</h2>
+        <div class="history-track" id="historyTrack" aria-label="accuracy over recent answers"></div>
+        <p class="panel-hint small">Each mark is one answer, most recent on the right.</p>
+      </aside>
+
+    </main>
+
+    <footer class="app-footer">
+      <p>Data persists locally in your browser · Backend: FastAPI on <code>localhost:8000</code></p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
